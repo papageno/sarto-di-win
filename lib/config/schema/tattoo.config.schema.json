@@ -169,7 +169,7 @@
       },
       {
         "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
-        "name": "Set-WinLanguageBarOption -UseLegacySwitchMode",
+        "name": "WinLanguageBarOption.UseLegacySwitchMode",
         "type": "String",
         "value": "powershell -noprofile -ex unrestricted -command \"Set-WinLanguageBarOption -UseLegacySwitchMode\""
       },
