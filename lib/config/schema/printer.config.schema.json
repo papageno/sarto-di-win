@@ -1,0 +1,56 @@
+{
+  "$id": "/etc/printer.config",
+  "type": "array",
+  "items": {
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "address": {
+        "type": "string"
+      },
+      "driver": {
+        "type": "string"
+      },
+      "pre_install": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          }
+        ]
+      },
+      "post_install": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          }
+        ]
+      }
+    },
+    "required": ["name", "address", "driver"],
+    "defaultSnippets": [
+      {
+        "body": {
+          "name": "$1",
+          "address": "$2",
+          "driver": "$3"
+        }
+      }
+    ]
+  },
+  "default": []
+}

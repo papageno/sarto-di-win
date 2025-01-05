@@ -1,0 +1,532 @@
+{
+  "$id": "/etc/tattoo.config",
+  "type": "object",
+  "properties": {
+    "registry": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^HK(LM|CU):\\\\(?:[^\\\\]+\\\\)*[^\\\\]*$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "String",
+              "ExpandString",
+              "Binary",
+              "DWord",
+              "MultiString",
+              "QWord"
+            ]
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["path", "name", "type", "value"],
+        "defaultSnippets": [
+          {
+            "body": {
+              "path": "$1",
+              "name": "$2",
+              "type": "${3|String,ExpandString,Binary,DWord,MultiString,QWord|}",
+              "value": "$4"
+            }
+          }
+        ]
+      }
+    },
+    "service": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": ["WSearch"]
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "startup_type": {
+            "type": "string",
+            "enum": ["Boot", "System", "Automatic", "Manual", "Disabled"]
+          }
+        },
+        "required": ["name", "startup_type"],
+        "defaultSnippets": [
+          {
+            "body": {
+              "name": "$1",
+              "startup_type": "${2|Boot,System,Automatic,Manual,Disabled|}"
+            }
+          }
+        ]
+      }
+    },
+    "feature": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "enum": [
+              "Containers-DisposableClientVM",
+              "Microsoft-Hyper-V",
+              "NetFx3",
+              "NetFx4-AdvSrvs"
+            ]
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "defaultSnippets": [
+        {
+          "body": ["$1"]
+        }
+      ]
+    }
+  },
+  "default": {
+    "registry": [
+      {
+        "path": "HKCU:\\Software\\Microsoft\\PowerShell\\1\\ShellIds\\Microsoft.PowerShell",
+        "name": "ExecutionPolicy",
+        "type": "String",
+        "value": "RemoteSigned"
+      },
+      {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location",
+        "name": "Value",
+        "type": "String",
+        "value": "Allow"
+      },
+      {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location\\NonPackaged",
+        "name": "Value",
+        "type": "String",
+        "value": "Allow"
+      },
+      {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+        "name": "ShowFrequent",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+        "name": "MMTaskbarEnabled",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+        "name": "MMTaskbarMode",
+        "type": "DWord",
+        "value": "2"
+      },
+      {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "NoSearchCommInStartMenu",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad",
+        "name": "RightClickZoneEnabled",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad",
+        "name": "TapAndDrag",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad",
+        "name": "TapsEnabled",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad",
+        "name": "TwoFingerTapEnabled",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
+        "name": "Set-WinLanguageBarOption -UseLegacySwitchMode",
+        "type": "String",
+        "value": "powershell -noprofile -ex unrestricted -command \"Set-WinLanguageBarOption -UseLegacySwitchMode\""
+      },
+      {
+        "path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "ConfigureWindowsSpotlight",
+        "type": "DWord",
+        "value": "2"
+      },
+      {
+        "path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableSpotlightCollectionOnDesktop",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableThirdPartySuggestions",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableWindowsSpotlightFeatures",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableWindowsSpotlightOnActionCenter",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableWindowsSpotlightOnSettings",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableWindowsSpotlightWindowsWelcomeExperience",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
+        "name": "DisableLockWorkstation",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location",
+        "name": "Value",
+        "type": "String",
+        "value": "Allow"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop",
+        "name": "NoChangingWallPaper",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "AllowOnlineTips",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "LockTaskbar",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "NoChangeStartMenu",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "NoInstrumentation",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "NoRecentDocsHistory",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "NoStartMenuMFUprogramsList",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "NoThemesTab",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "TaskbarNoRedock",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "NoConnectedUser",
+        "type": "DWord",
+        "value": "3"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "NoDispAppearancePage",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Google\\DriveFS",
+        "name": "AutoStartOnLogin",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Google\\DriveFS",
+        "name": "DisableExternalMediaSync",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Google\\DriveFS",
+        "name": "DisableMeetOutlookPlugin",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Google\\DriveFS",
+        "name": "DisableMirroredFolders",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Google\\DriveFS",
+        "name": "DisableMirroredMyDrive",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Google\\DriveFS",
+        "name": "DisableOnboardingDialog",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Google\\DriveFS",
+        "name": "DisableOutlookPlugin",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Google\\DriveFS",
+        "name": "DisablePhotosSync",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Google\\DriveFS",
+        "name": "DisableRealTimePresence",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Google\\DriveFS",
+        "name": "OpenOfficeFilesInDocs",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Dsh",
+        "name": "AllowNewsAndInterests",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+        "name": "HideFirstRunExperience",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+        "name": "PrintingPaperSizeDefault",
+        "type": "String",
+        "value": "{\"custom_size\": {\"width\": 210000, \"height\": 297000}, \"name\": \"custom\"}"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+        "name": "QuickSearchShowMiniMenu",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableCloudOptimizedContent",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableConsumerAccountStateContent",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableSoftLanding",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableWindowsConsumerFeatures",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "DisableContextMenusInStart",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "DisableGraphRecentItems",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "DisableSearchBoxSuggestions",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "HideRecentlyAddedApps",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "HideRecommendedSection",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "HideTaskViewButton",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "LockedStartLayout",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "NoPinningToTaskbar",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "ShowOrHideMostUsedApps",
+        "type": "DWord",
+        "value": "2"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "TaskbarNoMultimon",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "TaskbarNoPinnedList",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization",
+        "name": "NoChangingLockScreen",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization",
+        "name": "NoChangingStartMenuBackground",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization",
+        "name": "NoLockScreenCamera",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization",
+        "name": "NoLockScreenSlideshow",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Chat",
+        "name": "ChatIcon",
+        "type": "DWord",
+        "value": "3"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds",
+        "name": "EnableFeeds",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+        "name": "SearchOnTaskbarMode",
+        "type": "DWord",
+        "value": "0"
+      },
+      {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\tzautoupdate",
+        "name": "Start",
+        "type": "DWord",
+        "value": "3"
+      }
+    ],
+    "service": [
+      {
+        "name": "WSearch",
+        "startup_type": "Disabled"
+      }
+    ],
+    "feature": [
+      "Containers-DisposableClientVM",
+      "Microsoft-Hyper-V",
+      "NetFx3",
+      "NetFx4-AdvSrvs"
+    ]
+  }
+}

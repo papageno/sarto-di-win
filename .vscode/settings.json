@@ -1,0 +1,46 @@
+{
+  "files.associations": {
+    "**/etc/key.config": "json",
+    "**/etc/printer.config": "json",
+    "**/etc/scoop.config": "json",
+    "**/etc/share.config": "json",
+    "**/etc/tattoo.config": "json",
+    "**/etc/user.config": "json",
+    "**/etc/wifi.config": "json",
+    "**/etc/winget.config": "json"
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["**/etc/key.config"],
+      "url": "./lib/config/schema/key.config.schema.json"
+    },
+    {
+      "fileMatch": ["**/etc/printer.config"],
+      "url": "./lib/config/schema/printer.config.schema.json"
+    },
+    {
+      "fileMatch": ["**/etc/scoop.config"],
+      "url": "./lib/config/schema/scoop.config.schema.json"
+    },
+    {
+      "fileMatch": ["**/etc/share.config"],
+      "url": "./lib/config/schema/share.config.schema.json"
+    },
+    {
+      "fileMatch": ["**/etc/tattoo.config"],
+      "url": "./lib/config/schema/tattoo.config.schema.json"
+    },
+    {
+      "fileMatch": ["**/etc/user.config"],
+      "url": "./lib/config/schema/user.config.schema.json"
+    },
+    {
+      "fileMatch": ["**/etc/wifi.config"],
+      "url": "./lib/config/schema/wifi.config.schema.json"
+    },
+    {
+      "fileMatch": ["**/etc/winget.config"],
+      "url": "./lib/config/schema/winget.config.schema.json"
+    }
+  ]
+}

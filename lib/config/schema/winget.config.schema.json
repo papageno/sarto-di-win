@@ -1,0 +1,29 @@
+{
+  "$id": "/etc/winget.config",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "source": {
+        "type": "string",
+        "enum": ["msstore", "winget"]
+      }
+    },
+    "required": ["id", "source"],
+    "defaultSnippets": [
+      {
+        "body": {
+          "id": "$1",
+          "source": "${2|msstore,winget|}"
+        }
+      }
+    ]
+  },
+  "default": []
+}

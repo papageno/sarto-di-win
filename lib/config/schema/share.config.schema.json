@@ -1,0 +1,25 @@
+{
+  "$id": "/etc/share.config",
+  "type": "array",
+  "items": {
+    "properties": {
+      "address": {
+        "pattern": "\\\\(\\\\[^\\\\]+)+$",
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      }
+    },
+    "required": ["address", "name"],
+    "defaultSnippets": [
+      {
+        "body": {
+          "address": "\\\\\\\\${1|server|}\\\\${2|share|}",
+          "name": "${2|share|} (${1|server|})"
+        }
+      }
+    ]
+  },
+  "default": []
+}

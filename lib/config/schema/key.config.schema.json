@@ -1,0 +1,28 @@
+{
+  "$id": "/etc/key.config",
+  "type": "array",
+  "items": {
+    "properties": {
+      "domain": {
+        "type": "string"
+      },
+      "username": {
+        "type": "string"
+      },
+      "password": {
+        "type": "string"
+      }
+    },
+    "required": ["domain", "username", "password"],
+    "defaultSnippets": [
+      {
+        "body": {
+          "domain": "$1",
+          "username": "$2",
+          "password": "$3"
+        }
+      }
+    ]
+  },
+  "default": []
+}

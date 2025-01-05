@@ -1,0 +1,24 @@
+{
+  "$id": "/etc/wifi.config",
+  "type": "array",
+  "items": {
+    "properties": {
+      "ssid": {
+        "type": "string"
+      },
+      "password": {
+        "type": "string"
+      }
+    },
+    "required": ["ssid", "password"],
+    "defaultSnippets": [
+      {
+        "body": {
+          "ssid": "$1",
+          "password": "$2"
+        }
+      }
+    ]
+  },
+  "default": []
+}

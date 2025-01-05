@@ -1,0 +1,37 @@
+{
+  "$id": "/etc/scoop.config",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "app": {
+        "type": "string"
+      },
+      "bucket": {
+        "type": "string",
+        "enum": [
+          "main",
+          "extras",
+          "versions",
+          "nirsoft",
+          "sysinternals",
+          "php",
+          "nerd-fonts",
+          "nonportable",
+          "java",
+          "games"
+        ]
+      }
+    },
+    "required": ["app", "bucket"],
+    "defaultSnippets": [
+      {
+        "body": {
+          "app": "$1",
+          "bucket": "${2|main,extras,versions,nirsoft,sysinternals,php,nerd-fonts,nonportable,java,games|}"
+        }
+      }
+    ]
+  },
+  "default": []
+}
