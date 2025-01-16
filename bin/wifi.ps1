@@ -12,6 +12,7 @@ param (
 
 Set-StrictMode -Off
 
+Import-Module -Name "$PSScriptRoot\..\lib\config"
 Import-Module -Name "$PSScriptRoot\..\lib\file"
 
 if ($PSCmdlet.ParameterSetName -eq "Props") {
@@ -52,7 +53,6 @@ if ($PSCmdlet.ParameterSetName -eq "Props") {
 }
 
 elseif ($PSCmdlet.ParameterSetName -eq "Config") {
-	Import-Module -Name "$PSScriptRoot\..\lib\config"
 	$Wifi = Convert-Config -Object $Config
 	if ($Wifi.Count -ne 0) {
 		$Wifi | ForEach-Object {

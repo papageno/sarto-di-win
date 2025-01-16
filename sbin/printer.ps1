@@ -19,6 +19,8 @@ param (
 
 Set-StrictMode -Off
 
+Import-Module -Name "$PSScriptRoot\..\lib\config"
+
 Restart-Service -Name "Spooler" -Force
 
 if ($PSCmdlet.ParameterSetName -eq "Props") {
@@ -41,7 +43,6 @@ if ($PSCmdlet.ParameterSetName -eq "Props") {
 }
 
 elseif ($PSCmdlet.ParameterSetName -eq "Config") {
-    Import-Module -Name "$PSScriptRoot\..\lib\config"
     $Printers = Convert-Config -Object $Config
     if ($Printers.Count -ne 0) {
         $Printers | ForEach-Object {

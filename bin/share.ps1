@@ -12,6 +12,7 @@ param (
 
 Set-StrictMode -Off
 
+Import-Module -Name "$PSScriptRoot\..\lib\config"
 Import-Module -Name "$PSScriptRoot\..\lib\file"
 
 if ($PSCmdlet.ParameterSetName -eq "Props") {
@@ -36,7 +37,6 @@ Flags=2
 }
 
 elseif ($PSCmdlet.ParameterSetName -eq "Config") {
-    Import-Module -Name "$PSScriptRoot\..\lib\config"
     $Shares = Convert-Config -Object $Config
     if ($Shares.Count -ne 0) {
         $Shares | ForEach-Object {

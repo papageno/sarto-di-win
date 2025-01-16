@@ -20,6 +20,8 @@ param (
 
 Set-StrictMode -Off
 
+Import-Module -Name "$PSScriptRoot\..\lib\config"
+
 $Group = @{
     admin = "Administrators"
     user  = "Users"
@@ -43,7 +45,6 @@ if ($PSCmdlet.ParameterSetName -eq "Props") {
 }
 
 elseif ($PSCmdlet.ParameterSetName -eq "Config") {
-    Import-Module -Name "$PSScriptRoot\..\lib\config"
     $Users = Convert-Config -Object $Config
     if ($Users.Count -ne 0) {
         $Users | ForEach-Object {
