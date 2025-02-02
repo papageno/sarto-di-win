@@ -168,12 +168,6 @@
         "value": "0"
       },
       {
-        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
-        "name": "WinLanguageBarOption.UseLegacySwitchMode",
-        "type": "String",
-        "value": "powershell -noprofile -ex unrestricted -command \"Set-WinLanguageBarOption -UseLegacySwitchMode\""
-      },
-      {
         "path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
         "name": "ConfigureWindowsSpotlight",
         "type": "DWord",
@@ -226,6 +220,12 @@
         "name": "Value",
         "type": "String",
         "value": "Allow"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OOBE",
+        "name": "BypassNRO",
+        "type": "DWord",
+        "value": "1"
       },
       {
         "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop",
@@ -466,6 +466,12 @@
         "name": "TaskbarNoPinnedList",
         "type": "DWord",
         "value": "0"
+      },
+      {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\OOBE",
+        "name": "DisablePrivacyExperience",
+        "type": "DWord",
+        "value": "1"
       },
       {
         "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization",
