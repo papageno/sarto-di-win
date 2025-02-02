@@ -53,6 +53,7 @@ if ($Tattoo.registry.Count -ne 0) {
         registry\Set-RegistryValue @Props
     }
     $UserRegistryHivesX | ForEach-Object {
+        [gc]::Collect()
         reg.exe unload $($_.Key -replace "^Registry::")
     }
 }
