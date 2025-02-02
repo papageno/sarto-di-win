@@ -3,49 +3,6 @@
 
 Set-StrictMode -Off
 
-& "$PSScriptRoot\.\tattoo.ps1" -Config @"
-{
-  "registry": [
-    {
-      "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
-      "name": "AutoAdminLogon",
-      "type": "DWord",
-      "value": "0"
-    },
-    {
-      "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
-      "name": "SystemAutoLogon",
-      "type": "DWord",
-      "value": "0"
-    },
-    {
-      "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OOBE",
-      "name": "BypassNRO",
-      "type": "DWord",
-      "value": "1"
-    },
-    {
-      "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OOBE",
-      "name": "DefaultAccountAction",
-      "type": "DWord",
-      "value": "0"
-    },
-    {
-      "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OOBE",
-      "name": "LaunchUserOOBE",
-      "type": "DWord",
-      "value": "0"
-    },
-    {
-      "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\OOBE",
-      "name": "DisablePrivacyExperience",
-      "type": "DWord",
-      "value": "1"
-    }
-  ]
-}
-"@
-
 # If script is not called from another script
 if ($null -eq $MyInvocation.PSCommandPath) {
   $User = $false
@@ -61,9 +18,18 @@ if ($null -eq $MyInvocation.PSCommandPath) {
   }
 }
 
-Remove-LocalUser -Name "defaultuser0"
-
-# If script is not called from another script
-if ($null -eq $MyInvocation.PSCommandPath) {
-  Restart-Computer -Confirm
+$ProvisioningPackage = @{
+  Path = "$PSScriptRoot\.\skipoobe.ppkg"
 }
+$ProvisioningPackage.Destination = Join-Path -Path $(Get-Item -Path $ProvisioningPackage.Path).PSDrive.Root -ChildPath $(Get-Item -Path $ProvisioningPackage.Path).Name
+
+if (!(Test-Path -Path $ProvisioningPackage.Destination -PathType Leaf)) {
+  Copy-Item @ProvisioningPackage
+}
+
+$(Get-Item -Path $ProvisioningPackage.Destination).FullName
+
+Write-Host "Press Windows key five times to apply provisioning package..."
+
+Write-Host -NoNewline "Press Enter to continue..."
+[Console]::ReadLine() | Out-Null
