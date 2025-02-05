@@ -390,6 +390,12 @@
         "value": "0"
       },
       {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\OneDrive",
+        "name": "KFMBlockOptIn",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
         "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
         "name": "DisableCloudOptimizedContent",
         "type": "DWord",
