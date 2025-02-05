@@ -8,6 +8,7 @@ if ($null -eq $MyInvocation.PSCommandPath) {
   $User = $false
   while (!$User) {
     try {
+      # Create user with "admin" role
       & "$PSScriptRoot\.\user.ps1" -Role "admin"
       $User = $true
     }
@@ -21,15 +22,13 @@ if ($null -eq $MyInvocation.PSCommandPath) {
 $ProvisioningPackage = @{
   Path = "$PSScriptRoot\.\skipoobe.ppkg"
 }
+
+# Set destination path to drive root for provisioning package
 $ProvisioningPackage.Destination = Join-Path -Path $(Get-Item -Path $ProvisioningPackage.Path).PSDrive.Root -ChildPath $(Get-Item -Path $ProvisioningPackage.Path).Name
 
-if (!(Test-Path -Path $ProvisioningPackage.Destination -PathType Leaf)) {
-  Copy-Item @ProvisioningPackage
-}
+# Copy provisioning package
+Copy-Item @ProvisioningPackage -Force
 
-$(Get-Item -Path $ProvisioningPackage.Destination).FullName
+Write-Host "Press Windows key five times to install provisioning package $(Get-Item -Path $ProvisioningPackage.Destination)"
 
-Write-Host "Press Windows key five times to apply provisioning package..."
-
-Write-Host -NoNewline "Press Enter to continue..."
-[Console]::ReadLine() | Out-Null
+Pause
