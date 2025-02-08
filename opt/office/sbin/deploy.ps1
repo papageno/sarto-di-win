@@ -1,9 +1,9 @@
-#Requires -RunAsAdministrator
+# Requires -RunAsAdministrator
 #Requires -Version 5.1
 
 [CmdletBinding()]
 param (
-  [string]$Config = "$PSScriptRoot\..\etc\office.config\default.xml"
+  [string]$Config = "$PSScriptRoot\..\etc\deploy.config\default.xml"
 )
 
 Set-StrictMode -Off
@@ -13,7 +13,7 @@ function Get-Url {
   $ProgressPreference = "SilentlyContinue"
   $Url = "https://www.microsoft.com/en-us/download/details.aspx?id=49117"
   $Regex = "download/([\w/-]+)(officedeploymenttool_[\d-]+\.exe)"
-  $Content = $(Invoke-WebRequest $Url).Content
+  $Content = $(Invoke-WebRequest -Uri $Url).Content
   if (!($Content -match $Regex)) {
     Write-Host "Could not match '$Regex' in '$Url'"
     return
@@ -25,21 +25,21 @@ function Get-Url {
   return $Url
 }
 
-$Url = Get-Url
-
 $Directory = Join-Path -Path $Env:TEMP -ChildPath $(New-Guid).Guid
 New-Item -Path $Directory -ItemType Directory -Force | Out-Null
 
 $Download = @{
-  Uri     = $Url
-  OutFile = Join-Path -Path $Env:TEMP -ChildPath $([System.IO.Path]::GetFileName($Url))
+  Uri = Get-Url
 }
+$Download.OutFile = Join-Path -Path $Env:TEMP -ChildPath $([System.IO.Path]::GetFileName($Download.Uri))
+
 Invoke-WebRequest @Download
 
 $Expand = @{
   FilePath     = $Download.OutFile
   ArgumentList = "/quiet /extract:$Directory"
 }
+
 Start-Process @Expand -Wait
 Remove-Item -Path $Expand.FilePath
 
@@ -54,5 +54,6 @@ $Install = @{
   FilePath     = Join-Path -Path $Directory -ChildPath "setup.exe"
   ArgumentList = "/configure $Directory\$($(Get-Item -Path $Config).Name)"
 }
+
 Start-Process @Install -Wait
 Remove-Item -Path $Directory -Recurse -Force
