@@ -8,6 +8,7 @@ param (
 Set-StrictMode -Off
 
 $Schemas = Get-Content -Path $(Get-Item -Path "$PSScriptRoot\..\lib\config\schema\*.schema.json") -Raw -Encoding utf8 | ConvertFrom-Json
+
 $Schemas | ForEach-Object {
     $Config = @{
         Path    = Join-Path -Path "$PSScriptRoot\.." -ChildPath $_."`$id"
@@ -26,6 +27,7 @@ $Schemas | ForEach-Object {
 $Schemas = @(
     "$PSScriptRoot\..\etc\driver.driver"
 )
+
 $Schemas | ForEach-Object {
     if ($Clean) {
         if (Test-Path -Path $_ -PathType Container) {

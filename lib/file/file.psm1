@@ -28,4 +28,5 @@ function Out-File {
         }
     }
 }
+
 Export-ModuleMember -Function Out-File

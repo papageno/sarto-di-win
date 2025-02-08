@@ -5,6 +5,7 @@ Set-StrictMode -Off
 $Timeout = 180 # seconds
 $StartTime = Get-Date
 $Connectivity = $false
+
 while ((!$Connectivity) -and ($(Get-Date) -lt $StartTime.AddSeconds($Timeout))) {
     try {
         $NetConnectionProfiles = @(Get-NetConnectionProfile)

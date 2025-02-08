@@ -25,6 +25,7 @@ function Set-RegistryValue {
         }
     }
 }
+
 Export-ModuleMember -Function Set-RegistryValue
 
 function ConvertTo-Win32RegistryValueKind {
@@ -47,4 +48,5 @@ function ConvertTo-Win32RegistryValueKind {
         return $RegistryValueKind[$Type]
     }
 }
+
 Export-ModuleMember -Function ConvertTo-Win32RegistryValueKind

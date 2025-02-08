@@ -13,4 +13,5 @@ function Convert-Config {
         }
     }
 }
+
 Export-ModuleMember -Function Convert-Config

@@ -21,6 +21,7 @@ scoop cleanup *
 scoop cache rm *
 
 $Apps = Convert-Config -Object $Config
+
 if ($Apps.Count -ne 0) {
     $Apps | Select-Object -ExpandProperty "bucket" -Unique | ForEach-Object {
         scoop bucket add $_

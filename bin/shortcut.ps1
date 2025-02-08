@@ -25,4 +25,5 @@ $Shortcut.TargetPath = $Target
 $Shortcut.Arguments = $($ArgumentList -join " ")
 $Shortcut.Save()
 $Destination = Join-Path -Path $Directory -ChildPath $Name
+
 Move-Item -Path $Shortcut.FullName -Destination $Destination -Force

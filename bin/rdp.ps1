@@ -16,16 +16,18 @@ Set-StrictMode -Off
 
 Import-Module -Name "$PSScriptRoot\..\lib\file"
 
-$InputObject = @"
-full address:s:$Address
-username:s:$Username
-"@
-if ($Password.Length -ne 0) {
-    $InputObject += $("`r`n" + "password 51:b:$(ConvertFrom-SecureString -SecureString $Password)")
-}
-
-$File = @{
+$Props = @{
     InputObject = $InputObject
     FilePath    = $SaveAs
 }
-file\Out-File @File
+
+$Props.InputObject = @"
+full address:s:$Address
+username:s:$Username
+"@
+
+if ($Password.Length -ne 0) {
+    $Props.InputObject += $("`r`n" + "password 51:b:$(ConvertFrom-SecureString -SecureString $Password)")
+}
+
+file\Out-File @Props
