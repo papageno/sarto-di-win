@@ -210,12 +210,6 @@
         "value": "1"
       },
       {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
-        "name": "DisableLockWorkstation",
-        "type": "DWord",
-        "value": "0"
-      },
-      {
         "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location",
         "name": "Value",
         "type": "String",
