@@ -528,6 +528,12 @@
         "value": "0"
       },
       {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\FileSystem",
+        "name": "LongPathsEnabled",
+        "type": "DWord",
+        "value": "1"
+      },
+      {
         "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\tzautoupdate",
         "name": "Start",
         "type": "DWord",
