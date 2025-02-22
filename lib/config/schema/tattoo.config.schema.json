@@ -670,6 +670,11 @@
         "startup_type": "Disabled"
       }
     ],
-    "feature": ["Containers-DisposableClientVM", "Microsoft-Hyper-V"]
+    "feature": [
+      "Containers-DisposableClientVM",
+      "Microsoft-Hyper-V",
+      "NetFx3",
+      "NetFx4-AdvSrvs"
+    ]
   }
 }
