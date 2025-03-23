@@ -21,15 +21,16 @@ if ($Env:USERNAME -eq "defaultuser0") {
     }
   }
 
-  $ProvisioningPackage = @{
-    Path = "$PSScriptRoot\.\skipoobe.ppkg"
-  }
-  # Set destination path to drive root for provisioning package
-  $ProvisioningPackage.Destination = Join-Path -Path $(Get-Item -Path $ProvisioningPackage.Path).PSDrive.Root -ChildPath $(Get-Item -Path $ProvisioningPackage.Path).Name
-  # Copy provisioning package
-  Copy-Item @ProvisioningPackage -Force
+  # Create a temporary directory
+  $Directory = Join-Path -Path $Env:TEMP -ChildPath $(New-Guid).Guid
+  New-Item -Path $Directory -ItemType Directory -Force | Out-Null
+  # Copy provisioning package disk image to temporary directory
+  Copy-Item -Path "$PSScriptRoot\.\skipoobe.ppkg.iso" -Destination $Directory
+  # Mount provisioning package disk image
+  $DiskImage = Mount-DiskImage -ImagePath "$Directory\skipoobe.ppkg.iso" -PassThru
+  # Get provisioning package path
+  $ProvisioningPackage = Get-Item -Path "$($($DiskImage | Get-Volume).DriveLetter):\skipoobe.ppkg"
 
-  Write-Host "Press Windows key five times to install provisioning package ($(Get-Item -Path $ProvisioningPackage.Destination))."
-  Write-Host "Delete provisioning package ($(Get-Item -Path $ProvisioningPackage.Destination)) after installation."
+  Write-Host "Press Windows key five times to install provisioning package ($($ProvisioningPackage.FullName))."
   Pause
 }
